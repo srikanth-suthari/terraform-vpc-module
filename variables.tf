@@ -9,3 +9,11 @@ variable "vpc_tags" {
         Terraform = true
     }
 }
+
+variable "project_name" {
+  type = string
+}
+
+variable "environment" {
+  type = string
+}
