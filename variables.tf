@@ -7,6 +7,5 @@ variable "vpc_tags" {
     type = string
     default = {
         Terraform = true
-        Project = "roboshop"
     }
 }
