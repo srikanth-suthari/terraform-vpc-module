@@ -5,9 +5,8 @@ variable "vpc_cidr" {
 
 variable "vpc_tags" {
     type = map
-    default = {
-        Terraform = true
-    }
+    # It is not mandatory, if required add the desired tags
+    default = {}
 }
 
 variable "project_name" {
