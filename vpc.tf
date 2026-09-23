@@ -1,6 +1,6 @@
 resource "aws_vpc" "main" {             # giving an internal reference name as main
     cidr_block = var.vpc_cidr
-    instance_tenancy = "default"
+    instance_tenancy = "default"        #or dedicated
     enable_dns_hostnames = true
 
     tags = merge(
