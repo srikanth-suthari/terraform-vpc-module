@@ -12,3 +12,9 @@ resource "aws_vpc" "main" {             # giving an internal reference name as m
     )
 }
 
+resource "aws_igw" "igw" {
+    vpc_id = module.aws_vpc.id
+
+    name = "${project_name}-${environment}-igw"
+
+}
