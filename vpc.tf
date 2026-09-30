@@ -13,7 +13,7 @@ resource "aws_vpc" "main" {             # giving an internal reference name as m
 }
 
 resource "aws_internet_gateway" "igw" {
-    vpc_id = module.aws_vpc.id
+    vpc_id = module.main.id
 
     tags = merge(
         var.vpc_tags,
