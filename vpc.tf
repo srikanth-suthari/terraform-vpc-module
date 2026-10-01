@@ -12,14 +12,14 @@ resource "aws_vpc" "main" {             # giving an internal reference name as m
     )
 }
 
-resource "aws_internet_gateway" "igw" {
-    vpc_id = module.main.id
+# resource "aws_internet_gateway" "igw" {
+#     vpc_id = aws_vpc.main.id
 
-    tags = merge(
-        var.vpc_tags,
-        local.common_tags,
-        {
-            Name = local.common_name_suffix
-        }
-    )
-}
+#     tags = merge(
+#         var.vpc_tags,
+#         local.common_tags,
+#         {
+#             Name = local.common_name_suffix
+#         }
+#     )
+# }

@@ -9,6 +9,7 @@ variable "vpc_tags" {
     default = {}
 }
 
+# These are mandatory variables
 variable "project_name" {
   type = string
 }
