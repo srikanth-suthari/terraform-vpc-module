@@ -27,11 +27,11 @@ variable "public_subnet_tags" {
   default = {}
 }
 
-variable "public_subnet_cidrs" {
+variable "private_subnet_cidrs" {
   type = list
 }
 
-variable "public_subnet_tags" {
+variable "private_subnet_tags" {
   type = map
   default = {}
 }
