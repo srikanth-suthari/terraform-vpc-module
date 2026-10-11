@@ -1,3 +1,4 @@
+# VPC
 resource "aws_vpc" "main" {             # giving an internal reference name as main
     cidr_block = var.vpc_cidr
     instance_tenancy = "default"        #or dedicated
@@ -12,6 +13,7 @@ resource "aws_vpc" "main" {             # giving an internal reference name as m
     )
 }
 
+#Internet Gateway
 resource "aws_internet_gateway" "igw" {
     vpc_id = aws_vpc.main.id
 
@@ -24,6 +26,7 @@ resource "aws_internet_gateway" "igw" {
     )
 }
 
+#Public Subnet
 resource "aws_subnet" "public" {
     count = length(var.public_subnet_cidrs)
     vpc_id = aws_vpc.main.id
@@ -40,6 +43,7 @@ resource "aws_subnet" "public" {
     )
 }
 
+#Private Subnet
 resource "aws_subnet" "private" {
     count = length(var.private_subnet_cidrs)
     vpc_id = aws_vpc.main.id
@@ -56,6 +60,7 @@ resource "aws_subnet" "private" {
     )
 }
 
+#Database Subnet
 resource "aws_subnet" "database" {
     count = length(var.database_subnet_cidrs)
     vpc_id = aws_vpc.main.id
@@ -70,4 +75,17 @@ resource "aws_subnet" "database" {
         Name = "${local.common_name_suffix}-database-${local.az_names[count.index]}"  #roboshop-dev-database-us-east-1a
         }
     )
+}
+
+# Public Route Table
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.main.id
+
+  tags = merge(
+    var.public_route_table_tags,
+    local.common_tags,
+    {
+        Name = "${local.common_name_suffix}-public"
+    }
+  )
 }
