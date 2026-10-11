@@ -122,3 +122,16 @@ resource "aws_route" "public" {
   destination_cidr_block    = "0.0.0.0/0"
   gateway_id = aws_internet_gateway.main.id
 }
+
+# Elastic IP
+resource "aws_eip" "nat" {
+  domain   = "vpc"
+
+  tags = merge(
+    var.eip_tags,
+    local.common_tags,
+    {
+        Name = "${local.common_name_suffix}-nat"
+    }
+  )
+}

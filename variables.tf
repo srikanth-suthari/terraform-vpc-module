@@ -60,3 +60,7 @@ variable "database_route_table_tags" {
     default = {}
 }
 
+variable "eip_tags" {
+    type = map
+    default = {}
+}
