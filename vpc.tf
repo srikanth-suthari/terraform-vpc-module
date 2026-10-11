@@ -14,7 +14,7 @@ resource "aws_vpc" "main" {             # giving an internal reference name as m
 }
 
 #Internet Gateway
-resource "aws_internet_gateway" "igw" {
+resource "aws_internet_gateway" "main" {
     vpc_id = aws_vpc.main.id
 
     tags = merge(
