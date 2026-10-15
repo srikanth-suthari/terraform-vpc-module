@@ -123,50 +123,50 @@ resource "aws_route" "public" {
   gateway_id = aws_internet_gateway.main.id
 }
 
-# Elastic IP
-resource "aws_eip" "nat" {
-  domain   = "vpc"
+# # Elastic IP
+# resource "aws_eip" "nat" {
+#   domain   = "vpc"
 
-  tags = merge(
-    var.eip_tags,
-    local.common_tags,
-    {
-        Name = "${local.common_name_suffix}-nat"
-    }
-  )
-}
+#   tags = merge(
+#     var.eip_tags,
+#     local.common_tags,
+#     {
+#         Name = "${local.common_name_suffix}-nat"
+#     }
+#   )
+# }
 
-# NAT gateway
-resource "aws_nat_gateway" "nat" {
-  allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.public[0].id
+# # NAT gateway
+# resource "aws_nat_gateway" "nat" {
+#   allocation_id = aws_eip.nat.id
+#   subnet_id     = aws_subnet.public[0].id
 
-  tags = merge(
-    var.nat_gateway_tags,
-    local.common_tags,
-    {
-        Name = "${local.common_name_suffix}"
-    }
-  )
+#   tags = merge(
+#     var.nat_gateway_tags,
+#     local.common_tags,
+#     {
+#         Name = "${local.common_name_suffix}"
+#     }
+#   )
 
-  # To ensure proper ordering, it is recommended to add an explicit dependency
-  # on the Internet Gateway for the VPC.
-  depends_on = [aws_internet_gateway.main]
-}
+#   # To ensure proper ordering, it is recommended to add an explicit dependency
+#   # on the Internet Gateway for the VPC.
+#   depends_on = [aws_internet_gateway.main]
+# }
 
-# Private egress route through NAT
-resource "aws_route" "private" {
-  route_table_id            = aws_route_table.private.id
-  destination_cidr_block    = "0.0.0.0/0"
-  nat_gateway_id = aws_nat_gateway.nat.id
-}
+# # Private egress route through NAT
+# resource "aws_route" "private" {
+#   route_table_id            = aws_route_table.private.id
+#   destination_cidr_block    = "0.0.0.0/0"
+#   nat_gateway_id = aws_nat_gateway.nat.id
+# }
 
-# Database egress route through NAT
-resource "aws_route" "database" {
-  route_table_id            = aws_route_table.database.id
-  destination_cidr_block    = "0.0.0.0/0"
-  nat_gateway_id = aws_nat_gateway.nat.id
-}
+# # Database egress route through NAT
+# resource "aws_route" "database" {
+#   route_table_id            = aws_route_table.database.id
+#   destination_cidr_block    = "0.0.0.0/0"
+#   nat_gateway_id = aws_nat_gateway.nat.id
+# }
 
 resource "aws_route_table_association" "public" {
   count = length(var.public_subnet_cidrs)
