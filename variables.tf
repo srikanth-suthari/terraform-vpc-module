@@ -6,6 +6,7 @@ variable "vpc_cidr" {
 variable "vpc_tags" {
     type = map
     # It is not mandatory, if required add the desired tags
+    # It means the module user will have to give the value while using this module
     default = {}
 }
 
