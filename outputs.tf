@@ -13,3 +13,7 @@ output "vpc_region" {
 output "igw_id" {
     value = aws_internet_gateway.main.id
 }
+
+output "public_subnet_ids" {
+    value = aws_subnet.public[*].id
+}
